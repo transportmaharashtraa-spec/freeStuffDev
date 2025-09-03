@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transport Maharashtra - HSRP नंबर प्लेट नोंदणी</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #f0f5ff, #dbe9ff);
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #053373;
+      color: #fff;
+      text-align: center;
+      padding: 20px 10px;
+      border-bottom: 4px solid #03204b;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+    .container {
+      max-width: 700px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    h2 {
+      color: #053373;
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: #053373;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #0748a8;
+    }
+    .qr-section {
+      margin-top: 30px;
+      text-align: center;
+      display: none;
+    }
+    .qr-section img {
+      max-width: 230px;
+      margin-top: 15px;
+      border: 3px solid #053373;
+      border-radius: 10px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 15px;
+      font-size: 14px;
+      background: #053373;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>महाराष्ट्र परिवहन विभाग - Transport Maharashtra</h1>
+    <p>HSRP नंबर प्लेट ऑनलाईन नोंदणी सेवा</p>
+  </header>
+
+  <div class="container">
+    <h2>नवीन HSRP नंबर प्लेट साठी ऑनलाईन नोंदणी</h2>
+    <form id="hsrpForm">
+      <label for="vehicleType">वाहनाचा प्रकार निवडा:</label>
+      <select id="vehicleType" name="vehicleType" required>
+        <option value="">-- निवडा --</option>
+        <option value="2w">दुचाकी (2 Wheeler)</option>
+        <option value="3w">त्रिचाकी (3 Wheeler)</option>
+        <option value="4w">चारचाकी (4 Wheeler)</option>
+      </select>
+
+      <label for="regNum">वाहन रजिस्ट्रेशन नंबर:</label>
+      <input type="text" id="regNum" name="regNum" required>
+
+      <label for="chassisNum">चेसिस नंबर:</label>
+      <input type="text" id="chassisNum" name="chassisNum" required>
+
+      <label for="engineNum">इंजिन नंबर:</label>
+      <input type="text" id="engineNum" name="engineNum" required>
+
+      <label for="ownerName">मालकाचे नाव:</label>
+      <input type="text" id="ownerName" name="ownerName" required>
+
+      <label for="mobileNum">मोबाईल नंबर:</label>
+      <input type="text" id="mobileNum" name="mobileNum" required>
+
+      <label for="rcUpload">वाहन रजिस्ट्रेशन प्रमाणपत्र (RC) अपलोड करा:</label>
+      <input type="file" id="rcUpload" name="rcUpload">
+
+      <label for="fitmentCenter">फिटमेंट सेंटर निवडा:</label>
+      <select id="fitmentCenter" name="fitmentCenter">
+        <option value="">फिटमेंट सेंटर निवडा</option>
+        <option value="Kolhapur">कोल्हापूर</option>
+        <option value="Pune">पुणे</option>
+        <option value="Sangli">सांगली</option>
+      </select>
+
+      <label for="appointment">अपॉइंटमेंट तारीख निवडा:</label>
+      <input type="date" id="appointment" name="appointment">
+
+      <label for="paymentMode">पेमेंट पद्धत:</label>
+      <select id="paymentMode" name="paymentMode">
+        <option value="upi">UPI</option>
+        <option value="card">डेबिट/क्रेडिट कार्ड</option>
+        <option value="qr">QR कोड</option>
+      </select>
+
+      <button type="submit">नोंदणी करा</button>
+    </form>
+
+    <div class="qr-section" id="qrSection">
+      <h2>पेमेंट साठी QR कोड स्कॅन करा</h2>
+      <p id="amountText"></p>
+      <img id="qrImage" src="" alt="QR Code">
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Transport Maharashtra | परिवहन विभाग महाराष्ट्र शासन
+  </footer>
+
+  <script>
+    document.getElementById("hsrpForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      let vehicleType = document.getElementById("vehicleType").value;
+      let qrImage = document.getElementById("qrImage");
+      let amountText = document.getElementById("amountText");
+      let qrSection = document.getElementById("qrSection");
+
+      if(vehicleType === "2w"){
+        qrImage.src = "https://i.ibb.co/YRGcPP6/qr-531.png"; // दुचाकी
+        amountText.innerText = "₹531 - दुचाकी (2 Wheeler)";
+      } 
+      else if(vehicleType === "3w"){
+        qrImage.src = "https://i.ibb.co/3RW8hbp/qr-590.png"; // त्रिचाकी
+        amountText.innerText = "₹590 - त्रिचाकी (3 Wheeler)";
+      } 
+      else if(vehicleType === "4w"){
+        qrImage.src = "https://i.ibb.co/1GdH9hV/qr-879.png"; // चारचाकी
+        amountText.innerText = "₹879 - चारचाकी (4 Wheeler)";
+      } 
+      else {
+        alert("कृपया वाहनाचा प्रकार निवडा!");
+        return;
+      }
+
+      qrSection.style.display = "block";
+      qrSection.scrollIntoView({behavior:"smooth"});
+    });
+  </script>
+</body>
+</html>
